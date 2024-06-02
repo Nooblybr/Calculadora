@@ -1,5 +1,6 @@
 import tkinter as tk
 from sympy import sympify
+from math import sqrt
  
 
 def pressionar_botao(valor):
@@ -9,6 +10,16 @@ def pressionar_botao(valor):
 
 def limpar():
     entrada.delete(0,tk.END)
+
+def raiz():
+    num = entrada.get()
+    try:
+        raizq = sqrt(float(num))
+        entrada.delete(0,tk.END)
+        entrada.insert(0,raizq)
+    except:
+        entrada.delete(0,tk.END)
+        entrada.insert(0,"ERROR")
 
 def igual():
     expressao = entrada.get()
@@ -31,17 +42,20 @@ linha = 1
 coluna=0
 
 botoes = [
-    '7','8','9','/',
-    '4','5','6','*',
-    '1','2','3','+',
-    '0','C','=','-'
+    '(',')','√','/',
+    '7','8','9','*',
+    '4','5','6','+',
+    '1','2','3','-',
+    '0','C','=',
 ]
 
 for botao in botoes:
     if botao == "C":
         tk.Button(janela,text=botao, font=("arial",15),width=7,height=3, command= limpar).grid(row=linha,column=coluna)
     elif botao == "=":
-        tk.Button(janela,text=botao, font=("arial",15),width=7,height=3,command = igual).grid(row=linha,column=coluna)
+        tk.Button(janela,text=botao, font=("arial",15),width=15,bg='dark blue',height=3,command = igual).grid(row=linha,column=coluna,columnspan=2)
+    elif botao == "√":
+        tk.Button(janela,text=botao, font=("arial",15),width=7,height=3, command= raiz).grid(row=linha,column=coluna)
     else:
         tk.Button(janela,text=botao, font=("arial",15),width=7,height=3,command= lambda var = botao: pressionar_botao(var)).grid(row=linha,column=coluna)
 
